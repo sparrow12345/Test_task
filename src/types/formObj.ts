@@ -6,7 +6,7 @@ export interface formObj {
     budgetRangeMax: number | null,
     deadline: number | null,
     reminders: number | null,
-    rules: string,
+    rules: string | "",
 }
 
 export interface formProps {
