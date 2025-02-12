@@ -53,11 +53,7 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
           rulesObj[key] = isNaN(Number(value)) ? String(value) : Number(value); // Convert numeric values
       }
   });
-    if (Object.keys(rulesObj).length === 0) {
-      return "";
-    } else {
-      return JSON.stringify(rulesObj);
-    }
+    return JSON.stringify(rulesObj);
   };
   
   
