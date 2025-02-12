@@ -14,7 +14,12 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
   const [formDeadline, setFormDeadline] = useState<number|null>(form.deadline);
   const [formReminders, setFormReminders] = useState<number|null>(form.reminders);
   const [formRules, setFormRules] = useState<string>(form.rules);
-  const [formToken, setFormToken] = useState<string>(localStorage.getItem('authToken') || "");
+  let tok = ""
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    // Safe to use localStorage here
+    tok = localStorage.getItem('authToken') || "";
+  }
+  const [formToken, setFormToken] = useState<string>(tok);
   
   const updateRange = (ranges: string) => {
     const parts = ranges.split("/");
@@ -53,7 +58,7 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
           rulesObj[key] = isNaN(Number(value)) ? String(value) : Number(value); // Convert numeric values
       }
     });
-    if (JSON.stringify(rulesObj)== null || JSON.stringify(rulesObj)== undefined || JSON.stringify(rulesObj)== "{}") {
+    if (JSON.stringify(rulesObj)== null || JSON.stringify(rulesObj)== undefined) {
       return "";
     } else return JSON.stringify(rulesObj);
   };
@@ -66,7 +71,10 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
         return { success: false, error: "Title, description, and token are required." };
       }
   
-      localStorage.setItem('authToken', formToken);
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        // Safe to use localStorage here
+        localStorage.setItem('authToken', formToken);
+      }
       // Construct API request URL
       const apiUrl = "https://deadlinetaskbot.productlove.ru/api/v1/tasks/client/newhardtask";
       const formattedRules = formatRules(formRules);
