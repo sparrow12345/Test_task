@@ -45,7 +45,7 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
   };
   
   const formatRules = (rulesInput: string) => {
-    const rulesObj: { [key: string]: string | number } | Record<string, never> = {};
+    const rulesObj: { [key: string]: string | number } = {};
   
     rulesInput.split(',').forEach(pair => {
       const [key, value] = pair.split(':').map(str => str.trim());
