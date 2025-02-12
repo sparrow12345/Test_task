@@ -1,7 +1,8 @@
 import FormComponent from "@/components/formComponent";
+import { formObj } from "@/types/formObj";
 
 export default function Home() {
-  const form = {
+  const form:formObj = {
     title: '',
     description: '',
     tags: [''],
@@ -9,8 +10,8 @@ export default function Home() {
     budgetRangeMax: null,
     deadline: null,
     reminders: null,
-    rules: '',
-};
+    rules: "",
+  };
 
 return(
     <main className='mx-auto  min-h-screen w-full bg-gray-400 text-black'>

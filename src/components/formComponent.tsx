@@ -13,7 +13,7 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
   const [formBudgetRangeMax, setFormBudgetRangeMax] = useState<number|null>(form.budgetRangeMax);
   const [formDeadline, setFormDeadline] = useState<number|null>(form.deadline);
   const [formReminders, setFormReminders] = useState<number|null>(form.reminders);
-  const [formRules, setFormRules] = useState<string>("");
+  const [formRules, setFormRules] = useState<string>(form.rules);
   const [formToken, setFormToken] = useState<string>(localStorage.getItem('authToken') || "");
   
   const updateRange = (ranges: string) => {
@@ -52,8 +52,10 @@ const FormComponent: React.FC<formProps> = ({ form }) => {
       if (key && value) {
           rulesObj[key] = isNaN(Number(value)) ? String(value) : Number(value); // Convert numeric values
       }
-  });
-    return JSON.stringify(rulesObj);
+    });
+    if (JSON.stringify(rulesObj)== null || JSON.stringify(rulesObj)== undefined || JSON.stringify(rulesObj)== "{}") {
+      return "";
+    } else return JSON.stringify(rulesObj);
   };
   
   
